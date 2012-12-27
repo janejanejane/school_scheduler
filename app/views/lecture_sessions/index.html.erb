@@ -1,0 +1,8 @@
+<% if @classes.count > 0 %>
+	<% @classes.each do |class_session| %>
+		Class Name: <%= class_session.name %>
+	<% end %>
+
+<% else %>
+	0 Classes
+<% end %>

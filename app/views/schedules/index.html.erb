@@ -1,0 +1,20 @@
+<% provide(:title, 'School Scheduler') %>
+
+<div>
+	<h1>
+		<%= pluralize(@schedules.count, "schedule")  %>
+
+		<% @schedules.each do |sched| %>
+			Teacher: <%= sched.teacher_id %>
+			Class: <%= sched.lecture_session_id %>
+			Frequency: <%= sched.frequency %>
+			Start Time: <%= sched.start_time %>
+			Interval: <%= sched.time_interval %>
+		<% end %>
+	</h1>
+
+	Links:
+
+	<%= link_to "Add new teacher", new_teacher_path %>
+	<%= link_to "Add new class", new_lecture_session_path %>
+</div>

@@ -1,4 +1,12 @@
 SchoolScheduler::Application.routes.draw do
+  resources :teachers
+
+  resources :lecture_sessions, :path => 'classes'
+
+  resources :schedules, only: :index
+
+  root :to => 'schedules#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

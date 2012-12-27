@@ -1,0 +1,9 @@
+<h1>Edit teacher</h1>
+<div>
+	<%= form_for(@teacher) do |te| %>
+		<%= te.label :name %>
+		<%= te.text_field :name %>
+
+		<%= te.submit "Save changes" %>
+	<% end %>
+</div>

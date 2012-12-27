@@ -1,0 +1,7 @@
+<% if @teachers.count > 0 %>
+	<% @teachers.each do |teacher| %>
+		Teacher Name: <%= teacher.name %>
+	<% end %>
+<% else %>
+	0 Teachers
+<% end %>
