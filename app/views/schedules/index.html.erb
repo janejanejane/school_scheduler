@@ -1,6 +1,18 @@
 <% provide(:title, 'School Scheduler') %>
 
 <div>
+	<% if @teachers.count > 0 %>
+			Teacher Name: <%= select(:schedule, :teacher_name, @teachers.collect { |t| [t.name, t.id] }, {:prompt => 'Select Teacher'}) %>
+	<% else %>
+		0 Teachers
+	<% end %>
+
+	<% if @classes.count > 0 %>
+		Class Name: <%= select(:schedule, :lecture_session_name, @classes.collect { |c| [c.name, c.id] }, {:prompt => 'Select Class'}) %>
+	<% else %>
+		0 Classes
+	<% end %>
+
 	<h1>
 		<%= pluralize(@schedules.count, "schedule")  %>
 

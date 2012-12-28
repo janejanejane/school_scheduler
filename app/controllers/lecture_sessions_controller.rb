@@ -12,7 +12,7 @@ class LectureSessionsController < ApplicationController
 	end
 
 	def create
-		@class = LectureSession.new(params[:class])
+		@class = LectureSession.new(params[:lecture_session])
 
 		if @class.save
 			flash[:success] = "New class entry added!"
@@ -36,8 +36,8 @@ class LectureSessionsController < ApplicationController
 	end
 
 	def destroy
-		LectureSession.find(params[:class]).destroy
+		LectureSession.find(params[:lecture_session]).destroy
 		flash[:success] = "Class entry destroyed!"
-		redirect_to teachers_path
+		redirect_to lecture_sessions_path
 	end
 end
