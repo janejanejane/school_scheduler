@@ -1,4 +1,6 @@
 class TeachersController < ApplicationController
+	rescue_from ActiveRecord::DeleteRestrictionError, :with => :has_dependency
+
 	def index
 		@teachers = Teacher.all
 	end
@@ -40,4 +42,11 @@ class TeachersController < ApplicationController
 		flash[:success] = "Teacher entry destroyed!"
 		redirect_to teachers_path
 	end
+
+	private 
+
+		def has_dependency 
+			flash[:error] = "Cannot delete teacher record because of dependent schedule(s)!"
+			redirect_to :root
+		end
 end

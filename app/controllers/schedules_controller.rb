@@ -38,14 +38,8 @@ class SchedulesController < ApplicationController
 	end
 
 	def destroy
-		#begin
-			@schedule = Schedule.find(params[:id]).destroy
-		#rescue
-			#ActiveRecord::DeleteRestrictionError => err
-			flash[:error] = err
-			#@schedule.errors.add(:base, err)
-			flash[:success] = "Schedule entry destroyed!"
-			redirect_to schedules_path
-		#end
+		Schedule.find(params[:id]).destroy
+		flash[:success] = "Schedule entry destroyed!"
+		redirect_to schedules_path
 	end
 end

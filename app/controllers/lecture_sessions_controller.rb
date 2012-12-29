@@ -1,4 +1,6 @@
 class LectureSessionsController < ApplicationController
+	rescue_from ActiveRecord::DeleteRestrictionError, :with => :has_dependency
+
 	def index
 		@classes = LectureSession.all
 	end
@@ -40,4 +42,11 @@ class LectureSessionsController < ApplicationController
 		flash[:success] = "Class entry destroyed!"
 		redirect_to lecture_sessions_path
 	end
+
+	private 
+
+		def has_dependency 
+			flash[:error] = "Cannot delete class record because of dependent schedule(s)!"
+			redirect_to :root
+		end
 end
