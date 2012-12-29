@@ -36,7 +36,7 @@ class LectureSessionsController < ApplicationController
 	end
 
 	def destroy
-		LectureSession.find(params[:lecture_session]).destroy
+		LectureSession.find(params[:id]).destroy
 		flash[:success] = "Class entry destroyed!"
 		redirect_to lecture_sessions_path
 	end

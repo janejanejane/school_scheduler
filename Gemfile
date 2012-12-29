@@ -7,6 +7,10 @@ gem 'rails', '3.2.9'
 
 gem 'pg'
 
+group :development, :test do
+	gem 'meta_request', '0.2.0'
+end
+
 gem 'annotate', group: :development
 
 # Gems used only for assets and not required

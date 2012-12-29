@@ -12,7 +12,19 @@ class Teacher < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :name
 
-  belongs_to :schedule
+  #belongs_to :schedule
+  has_many :schedules, dependent: :restrict
+
+  #before_destroy :check_for_teachers
 
   validates :name, presence: :true
+
+  #private 
+
+	#  def check_for_teachers
+	#  	if schedules.count > 0
+	#  		errors.add_to_base("Cannot delete schedule while teachers exists")
+	#  		return false
+	#  	end
+	#  end
 end

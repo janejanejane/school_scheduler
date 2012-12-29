@@ -18,22 +18,25 @@
 	</h1>
 
 	<div>
-		<% @schedules.each do |sched| %>
-			Teacher: <%= sched.teacher_id %>
-			Class: <%= sched.lecture_session_id %>
-			Frequency: <%= sched.frequency %>
-			Start Time: <%= sched.start_time %>
-			Interval: <%= sched.time_interval %>
+		<% @schedules.each do |sch| %>
+			<div>
+				Teacher: <%= sch.teacher_id %>
+				Class: <%= sch.lecture_session_id %>
+				Frequency: <%= sch.frequency %>
+				Start Time: <%= sch.start_time %>
+				Interval: <%= sch.time_interval %>
+			</div>
+
+			<%= link_to "Update schedule record", edit_schedule_path(sch) %>
 		<% end %>
 	</div>
 
-	Links:
 	<div>
-		<%= link_to "Add new schedule", new_schedule_path %>
-	</div>
-	
-	<div>
-		<%= link_to "Add new teacher", new_teacher_path %>
-		<%= link_to "Add new class", new_lecture_session_path %>
+	<h4>Links:</h4>
+		<div>
+			<%= link_to "Add new schedule", new_schedule_path %>
+			<%= link_to "Add new teacher", new_teacher_path %>
+			<%= link_to "Add new class", new_lecture_session_path %>
+		</div>
 	</div>
 </div>

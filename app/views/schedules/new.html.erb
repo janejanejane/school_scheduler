@@ -14,7 +14,7 @@
 		<%= sch.text_field :frequency %>
 
 		<%= sch.label :start_time %>
-		<%= sch.time_select :start_time %>
+		<%= sch.time_select :start_time, {:ampm => true, :minute_step => 15} %>
 
 		<%= sch.label :time_interval %>
 		<%= sch.text_field :time_interval %>

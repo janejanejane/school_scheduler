@@ -16,12 +16,32 @@ class Schedule < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :teacher_id, :lecture_session_id, :frequency, :start_time, :time_interval
 
-  has_many :teachers, dependent: :destroy
-  has_many :lecture_sessions, dependent: :destroy
+  #has_many :teachers
+  #has_many :lecture_sessions
+  belongs_to :teacher
+  belongs_to :lecture_session
+
+  #before_destroy :check_for_teachers, :check_for_classes
 
   validates :teacher_id, presence: :true
   validates :lecture_session_id, presence: :true
   validates :frequency, presence: :true
   validates :start_time, presence: :true
   validates :time_interval, presence: :true
+
+  #private 
+
+	#  def check_for_teachers
+	#  	if teachers.count > 0
+	#  		errors.add_to_base("Cannot delete schedule while teachers exists")
+	#  		return false
+	#  	end
+	#  end
+
+	#  def check_for_classes
+	#  	if lecture_sessions.count > 0
+	#  		errors.add_to_base("Cannot delete schedule while classes exists")
+	#  		return false
+	#  	end
+	#  end
 end

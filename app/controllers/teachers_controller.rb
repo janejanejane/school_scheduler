@@ -36,7 +36,7 @@ class TeachersController < ApplicationController
 	end
 
 	def destroy
-		Teacher.find(params[:teacher]).destroy
+		Teacher.find(params[:id]).destroy
 		flash[:success] = "Teacher entry destroyed!"
 		redirect_to teachers_path
 	end

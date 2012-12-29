@@ -1,1 +1,8 @@
-show lecture_session
+<div>
+	Class: <%= @class.name %>
+</div>
+
+<div>
+	<%= link_to "Update class record", edit_lecture_session_path %>
+	<%= link_to "Delete class record", @lecture_session, method: :delete, confirm: "Are you sure you want to delete?" %>
+</div>

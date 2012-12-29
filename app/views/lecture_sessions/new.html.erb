@@ -1,9 +1,9 @@
 <h1>Add new class</h1>
 <div>
-	<%= form_for(@class) do |te| %>
-		<%= te.label :name %>
-		<%= te.text_field :name %>
+	<%= form_for(@class) do |cl| %>
+		<%= cl.label :name %>
+		<%= cl.text_field :name %>
 
-		<%= te.submit "Add class" %>
+		<%= cl.submit "Add class" %>
 	<% end %>
 </div>
