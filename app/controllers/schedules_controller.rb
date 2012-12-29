@@ -10,7 +10,7 @@ class SchedulesController < ApplicationController
 	end
 
 	def new
-		@schedule = ScheduleSchedule.new
+		@schedule = Schedule.new
 	end
 
 	def create

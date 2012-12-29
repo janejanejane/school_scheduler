@@ -15,7 +15,9 @@
 
 	<h1>
 		<%= pluralize(@schedules.count, "schedule")  %>
+	</h1>
 
+	<div>
 		<% @schedules.each do |sched| %>
 			Teacher: <%= sched.teacher_id %>
 			Class: <%= sched.lecture_session_id %>
@@ -23,10 +25,15 @@
 			Start Time: <%= sched.start_time %>
 			Interval: <%= sched.time_interval %>
 		<% end %>
-	</h1>
+	</div>
 
 	Links:
-
-	<%= link_to "Add new teacher", new_teacher_path %>
-	<%= link_to "Add new class", new_lecture_session_path %>
+	<div>
+		<%= link_to "Add new schedule", new_schedule_path %>
+	</div>
+	
+	<div>
+		<%= link_to "Add new teacher", new_teacher_path %>
+		<%= link_to "Add new class", new_lecture_session_path %>
+	</div>
 </div>

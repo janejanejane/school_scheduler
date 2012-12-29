@@ -3,7 +3,7 @@ SchoolScheduler::Application.routes.draw do
 
   resources :lecture_sessions, :path => 'classes'
 
-  resources :schedules, only: :index
+  resources :schedules
 
   root :to => 'schedules#index'
 
