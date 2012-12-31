@@ -1,0 +1,29 @@
+<div>
+	<%= form_for(@schedule) do |sch| %>
+		<%= sch.label :lecture_session_id, 'Class' %>
+		<%= collection_select(:schedule, :lecture_session_id, LectureSession.all, :id, :name, :prompt => 'Select Class') %>
+
+		<%= sch.label :frequency %>
+		<label class="checkbox">
+		<% WEEKDAY.each do |choice| 
+				option = false
+				if(@dates)
+					if(@dates.index{|d| d == choice}) %>
+		    		<% option = true %>
+	    		<% end %>
+    		<% end %>
+				<%= sch.check_box :frequency, { :multiple => true, :checked => option }, choice, nil %><%= choice %>
+    		</label>
+    <% end %>
+
+		<%= sch.label :start_time %>
+		<%= sch.time_select :start_time, {:ampm => true, :minute_step => 5} %>
+
+		<%= sch.label :time_interval %>
+		<%= sch.text_field :time_interval %>
+
+		<%= sch.hidden_field :teacher_id %>
+
+		<%= sch.submit "Add schedule" %>
+	<% end %>
+</div>

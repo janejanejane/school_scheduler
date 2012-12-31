@@ -2,7 +2,13 @@
 	Teacher: <%= @teacher.name %>
 </div>
 
+	<% if @classes.count > 0 %>
+		<%= render 'schedules/form' %>
+	<% end %>
+
 <div>
 	<%= link_to "Update teacher record", edit_teacher_path %>
 	<%= link_to "Delete teacher record", @teacher, method: :delete, confirm: "Are you sure you want to delete?" %>
 </div>
+
+<%= link_to "<< Back to index", schedules_path %>

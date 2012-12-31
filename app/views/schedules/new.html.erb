@@ -19,6 +19,10 @@
 		<%= sch.label :time_interval %>
 		<%= sch.text_field :time_interval %>
 
+		<%= sch.label :teacher_id %>
+
 		<%= sch.submit "Add schedule" %>
 	<% end %>
 </div>
+
+<%= link_to "<< Back to index", schedules_path %>

@@ -3,6 +3,11 @@
 <div>
 	<% if @teachers.count > 0 %>
 			Teacher Name: <%= select(:schedule, :teacher_name, @teachers.collect { |t| [t.name, t.id] }, {:prompt => 'Select Teacher'}) %>
+
+			<% @teachers.each do |te| %>
+				<%= te.name %>
+				<%= link_to "Add schedule", teacher_path(te.id) %>
+			<% end %>
 	<% else %>
 		0 Teachers
 	<% end %>
@@ -34,7 +39,6 @@
 	<div>
 	<h4>Links:</h4>
 		<div>
-			<%= link_to "Add new schedule", new_schedule_path %>
 			<%= link_to "Add new teacher", new_teacher_path %>
 			<%= link_to "Add new class", new_lecture_session_path %>
 		</div>

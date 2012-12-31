@@ -2,18 +2,24 @@ class TeachersController < ApplicationController
 	rescue_from ActiveRecord::DeleteRestrictionError, :with => :has_dependency
 
 	def index
+		logger.debug "inside INDEX"
 		@teachers = Teacher.all
 	end
 
 	def show
+		logger.debug "inside SHOW"
 		@teacher = Teacher.find(params[:id])
+		@classes = LectureSession.all
+		@schedule = @teacher.schedules.build
 	end
 
 	def new
+		logger.debug "inside NEW"
 		@teacher = Teacher.new
 	end
 
 	def create
+		logger.debug "inside CREATE"
 		@teacher = Teacher.new(params[:teacher])
 
 		if @teacher.save
@@ -25,10 +31,12 @@ class TeachersController < ApplicationController
 	end
 
 	def edit
+		logger.debug "inside EDIT"
 		@teacher = Teacher.find(params[:id])
 	end
 
 	def update
+		logger.debug "inside UPDATE"
 		@teacher = Teacher.find(params[:id])
 		if @teacher.update_attributes(params[:teacher])
 			redirect_to @teacher
@@ -38,6 +46,7 @@ class TeachersController < ApplicationController
 	end
 
 	def destroy
+		logger.debug "inside DESTROY"
 		Teacher.find(params[:id]).destroy
 		flash[:success] = "Teacher entry destroyed!"
 		redirect_to teachers_path
