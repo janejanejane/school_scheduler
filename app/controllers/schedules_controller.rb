@@ -1,5 +1,6 @@
 class SchedulesController < ApplicationController
 	# private methods are loaded
+	before_filter :correct_schedule, only: [:edit, :update, :show]
 	before_filter :format_frequency, only: [:create, :update]
 
 	def index
@@ -11,7 +12,7 @@ class SchedulesController < ApplicationController
 
 	def show
 		logger.debug "inside SHOW"
-		@schedule = Schedule.find(params[:id])
+		#@schedule = Schedule.find(params[:id])
 	end
 
 	def new
@@ -33,13 +34,17 @@ class SchedulesController < ApplicationController
 
 	def edit
 		logger.debug "inside EDIT"
-		@schedule = Schedule.find(params[:id])
+		#@schedule = Schedule.find(params[:id])
 		@dates = @schedule.frequency.split(',')
 	end
 
 	def update
 		logger.debug "inside UPDATE"
-		@schedule = Schedule.find(params[:id])
+		#@schedule = Schedule.find(params[:id])
+		if @frequency != ''
+			@dates = @frequency.split(',')
+		end
+
 		if @schedule.update_attributes(params[:schedule])
 			redirect_to @schedule
 		else
@@ -55,8 +60,20 @@ class SchedulesController < ApplicationController
 	end
 
 	private
+		def correct_schedule
+			@schedule = Schedule.find(params[:id])
+      #redirect_to(root_path) unless current_user?(@user)
+    end
+
 		def format_frequency
-			@frequency = params[:schedule][:frequency].join(',')
+			logger.debug "inside format_frequency"
+
+			if(!params[:schedule][:frequency].nil?)
+				@frequency = params[:schedule][:frequency].join(',')
+			else
+				@frequency = ''
+			end
+			
 			params[:schedule][:frequency] = @frequency
 		end
 end

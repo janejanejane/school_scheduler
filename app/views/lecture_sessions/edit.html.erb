@@ -1,10 +1,11 @@
 <h1>Edit class</h1>
 <div>
 	<%= form_for(@class) do |cl| %>
+		<%= render 'shared/error_messages', object: cl.object %>
 		<%= cl.label :name %>
 		<%= cl.text_field :name %>
 
-		<%= cl.submit "Save changes" %>
+		<%= cl.submit "Update class" %>
 	<% end %>
 </div>
 

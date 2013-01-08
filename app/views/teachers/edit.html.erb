@@ -1,10 +1,11 @@
 <h1>Edit teacher</h1>
 <div>
 	<%= form_for(@teacher) do |te| %>
+		<%= render 'shared/error_messages', object: te.object %>
 		<%= te.label :name %>
 		<%= te.text_field :name %>
 
-		<%= te.submit "Save changes" %>
+		<%= te.submit "Update teacher" %>
 	<% end %>
 </div>
 

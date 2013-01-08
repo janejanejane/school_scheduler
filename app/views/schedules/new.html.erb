@@ -1,28 +1,6 @@
 <h1>Add new schedule</h1>
 <div>
-	<%= form_for(@schedule) do |sch| %>
-		<%= sch.label :teacher_id %>
-		<!--<%= sch.text_field :teacher_id %> -->
-		<!--%= collection_select(:teacher, :schedule_id, Schedule.all, :id, :name, :prompt => 'Select Teacher') %> -->
-		<%= collection_select(:schedule, :teacher_id, Teacher.all, :id, :name, :prompt => 'Select Teacher') %>
-
-		<%= sch.label :lecture_session_id, 'Class' %>
-		<!-- <%= sch.text_field :lecture_session_id %> -->
-		<%= collection_select(:schedule, :lecture_session_id, LectureSession.all, :id, :name, :prompt => 'Select Class') %>
-
-		<%= sch.label :frequency %>
-		<%= sch.text_field :frequency %>
-
-		<%= sch.label :start_time %>
-		<%= sch.time_select :start_time, {:ampm => true, :minute_step => 15} %>
-
-		<%= sch.label :time_interval %>
-		<%= sch.text_field :time_interval %>
-
-		<%= sch.label :teacher_id %>
-
-		<%= sch.submit "Add schedule" %>
-	<% end %>
+		<%= render 'schedules/form' %>
 </div>
 
 <%= link_to "<< Back to index", schedules_path %>

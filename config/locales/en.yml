@@ -2,4 +2,14 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  #hello: "Hello world"
+  helpers:
+    submit:
+      create: "Add %{model}"
+      update: "Update %{model}"
+  activerecord:
+    attributes:
+      teacher:
+        password_digest: "Password"
+      schedule:
+        lecture_session_id: "Class"

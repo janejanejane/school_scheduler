@@ -1,5 +1,6 @@
 <div>
 	<%= form_for(@schedule) do |sch| %>
+		<%= render 'shared/error_messages', object: sch.object %>
 		<%= sch.label :lecture_session_id, 'Class' %>
 		<%= collection_select(:schedule, :lecture_session_id, LectureSession.all, :id, :name, :prompt => 'Select Class') %>
 
@@ -24,6 +25,6 @@
 
 		<%= sch.hidden_field :teacher_id %>
 
-		<%= sch.submit "Add schedule" %>
+		<%= sch.submit %>
 	<% end %>
 </div>

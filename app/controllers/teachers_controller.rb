@@ -1,6 +1,8 @@
 class TeachersController < ApplicationController
 	rescue_from ActiveRecord::DeleteRestrictionError, :with => :has_dependency
 
+	before_filter :auto_pass, only: [:create]
+
 	def index
 		logger.debug "inside INDEX"
 		@teachers = Teacher.all
@@ -57,5 +59,10 @@ class TeachersController < ApplicationController
 		def has_dependency 
 			flash[:error] = "Cannot delete teacher record because of dependent schedule(s)!"
 			redirect_to :root
+		end
+
+		def auto_pass
+			params[:teacher][:password] = "P@ssw0rd"
+			params[:teacher][:password_confirmation] = "P@ssw0rd"
 		end
 end
