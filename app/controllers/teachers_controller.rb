@@ -2,6 +2,8 @@ class TeachersController < ApplicationController
 	rescue_from ActiveRecord::DeleteRestrictionError, :with => :has_dependency
 
 	before_filter :auto_pass, only: [:create]
+	before_filter :signed_in_teacher
+	#before_filter :correct_teacher
 
 	def index
 		logger.debug "inside INDEX"
@@ -64,5 +66,14 @@ class TeachersController < ApplicationController
 		def auto_pass
 			params[:teacher][:password] = "P@ssw0rd"
 			params[:teacher][:password_confirmation] = "P@ssw0rd"
+		end
+
+		def signed_in_teacher
+			redirect_to signin_url, notice: "Please sign in." unless signed_in?
+		end
+
+		def correct_teacher
+			@teacher = Teacher.find(params[:id])
+			redirect_to(root_path) unless current_teacher?(@teacher)
 		end
 end

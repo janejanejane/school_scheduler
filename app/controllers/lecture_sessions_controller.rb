@@ -1,6 +1,8 @@
 class LectureSessionsController < ApplicationController
 	rescue_from ActiveRecord::DeleteRestrictionError, :with => :has_dependency
 
+	before_filter :signed_in_teacher
+
 	def index
 		logger.debug "inside INDEX"
 		@classes = LectureSession.all
@@ -55,5 +57,9 @@ class LectureSessionsController < ApplicationController
 		def has_dependency 
 			flash[:error] = "Cannot delete class record because of dependent schedule(s)!"
 			redirect_to :root
+		end
+
+		def signed_in_teacher
+			redirect_to signin_url, notice: "Please sign in." unless signed_in?
 		end
 end

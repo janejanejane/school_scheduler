@@ -9,10 +9,10 @@
 		<% WEEKDAY.each do |choice| 
 				option = false
 				if(@dates)
-					if(@dates.index{|d| d == choice}) %>
-		    		<% option = true %>
-	    		<% end %>
-    		<% end %>
+					if(@dates.index{|d| d == choice}) # checks if index is not 0
+		    		option = true
+	    		end
+    		end %>
 				<%= sch.check_box :frequency, { :multiple => true, :checked => option }, choice, nil %><%= choice %>
     		</label>
     <% end %>

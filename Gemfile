@@ -10,6 +10,8 @@ gem 'pg'
 
 group :development, :test do
 	gem 'meta_request', '0.2.0'
+  gem 'rspec-rails', '2.10.0'
+  gem 'guard-rspec', '0.5.5'
 end
 
 gem 'annotate', group: :development

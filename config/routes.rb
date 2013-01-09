@@ -1,11 +1,13 @@
 SchoolScheduler::Application.routes.draw do
   resources :teachers
-
   resources :lecture_sessions, :path => 'classes'
-
   resources :schedules
+  resources :sessions, only: [:new, :create, :destroy]
 
   root :to => 'schedules#index'
+
+  match '/signin', to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
