@@ -1,3 +1,6 @@
+<% provide(:title, 'All Teachers') %>
+
+<div>
 <% if @teachers.count > 0 %>
 	<% @teachers.each do |teacher| %>
 		Teacher Name: <%= teacher.name %>
@@ -5,3 +8,4 @@
 <% else %>
 	0 Teachers
 <% end %>
+</div>

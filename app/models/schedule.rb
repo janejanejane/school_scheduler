@@ -23,6 +23,6 @@ class Schedule < ActiveRecord::Base
   validates :lecture_session_id, presence: :true
   validates :frequency, presence: :true
   validates :start_time, presence: :true
-  validates :time_interval, presence: :true
+  validates :time_interval, presence: :true, numericality:{ greater_than: 0, less_than_or_equal_to: 60 }
 
 end

@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.10'
+gem 'rails', '3.2.11'
 gem 'bcrypt-ruby', '3.0.1'
+#gem 'combined_time_select', '~> 1.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -12,6 +13,7 @@ group :development, :test do
 	gem 'meta_request', '0.2.0'
   gem 'rspec-rails', '2.10.0'
   gem 'guard-rspec', '0.5.5'
+  gem 'debugger'
 end
 
 gem 'annotate', group: :development
@@ -29,6 +31,17 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+
+group :test do
+  gem 'capybara', '1.1.2'
+  gem 'rb-inotify', '0.8.8'
+  gem 'libnotify', '0.5.9'
+  gem 'guard-spork', '1.2.0'
+  gem 'spork', '0.9.2'
+  gem 'factory_girl_rails', '4.1.0'
+  gem 'launchy'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

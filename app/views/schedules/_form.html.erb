@@ -19,6 +19,14 @@
 
 		<%= sch.label :start_time %>
 		<%= sch.time_select :start_time, {:ampm => true, :minute_step => 5} %>
+		<!--%= sch.time_select :start_time, :combined => true,
+				  :default => Time.now.change(:hour => Time.now.hour),
+				  :minute_interval => 15,
+				  :time_separator => "",
+				  :start_hour => 6,
+				  :start_minute => 30,
+				  :end_hour => 21,
+				  :end_minute => 30  %-->
 
 		<%= sch.label :time_interval %>
 		<%= sch.text_field :time_interval %>

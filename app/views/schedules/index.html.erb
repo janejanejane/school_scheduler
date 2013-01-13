@@ -1,4 +1,4 @@
-<% provide(:title, 'School Scheduler') %>
+<% provide(:title, 'All Schedules') %>
 
 <div>
 	<% if @teachers.count > 0 %>
@@ -32,7 +32,7 @@
 				Interval: <%= sch.time_interval %>
 			</div>
 
-			<%= link_to "Update schedule record", edit_schedule_path(sch) %>
+			<%= link_to "View schedule record", schedule_path(sch) %>
 		<% end %>
 	</div>
 

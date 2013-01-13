@@ -1,3 +1,6 @@
+<% provide(:title, 'All Classes') %>
+
+<div>
 <% if @classes.count > 0 %>
 	<% @classes.each do |class_session| %>
 		Class Name: <%= class_session.name %>
@@ -6,3 +9,4 @@
 <% else %>
 	0 Classes
 <% end %>
+</div>
