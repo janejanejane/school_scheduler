@@ -65,7 +65,7 @@ describe SchedulesController do
 
   describe "write methods" do
 
-		let!(:invalid_schedule) { FactoryGirl.attributes_for(:invalid_schedule) }
+		let!(:invalid_blank_schedule) { FactoryGirl.attributes_for(:invalid_blank_schedule) }
 
 		describe "POST #create" do
 			
@@ -77,8 +77,28 @@ describe SchedulesController do
 
 					let!(:other_schedule) { FactoryGirl.attributes_for(:schedule) }
 
-					it "saves the new schedule in the database" do
-						expect{ post :create, schedule: other_schedule  }.to change(Schedule, :count).by(1)
+					context "when record is new schedule" do
+						it "saves in the database" do
+							expect{ post :create, schedule: other_schedule  }.to change(Schedule, :count).by(1)
+						end
+					end
+
+					context "when time_interval precedes recorded schedule" do 
+						
+						let!(:precede_time_schedule) { FactoryGirl.attributes_for(:precede_time_schedule) }
+						it "saves in the database" do
+							expect{ post :create, schedule: precede_time_schedule  }.to change(Schedule, :count).by(1)
+							other_schedule = precede_time_schedule
+						end
+					end
+
+					context "when class is new from recorded schedule" do 
+					
+						let!(:overlap_class_schedule) { FactoryGirl.attributes_for(:overlap_class_schedule) }
+						it "does save in database" do
+							expect{ post :create, schedule: overlap_class_schedule  }.to change(Schedule, :count).by(1)
+							other_schedule = overlap_class_schedule
+						end
 					end
 
 					it "redirects to the :show template" do
@@ -91,18 +111,20 @@ describe SchedulesController do
 				describe "has schedule overlap" do
 					before { FactoryGirl.create(:default_for_overlap_schedule) }
 					
-					let!(:overlap_schedule) { FactoryGirl.attributes_for(:overlap_schedule) }
+					context "when time_interval is in range of recorded schedule" do 
 					
-					it "prompts user of error" do
-						expect{ post :create, schedule: overlap_schedule  }.not_to change(Schedule, :count).by(1)
-						flash[:error].should eq("Schedule has an overlap")
+						let!(:overlap_time_schedule) { FactoryGirl.attributes_for(:overlap_time_schedule) }
+						it "does not save in database" do
+							expect{ post :create, schedule: overlap_time_schedule  }.not_to change(Schedule, :count).by(1)
+							flash[:error].should eq("Schedule has an overlap")
+						end
 					end
 				end
 			end
 
 			describe "with invalid attributes" do
 				it "does not save the new schedule in the database" do
-					expect{ post :create, schedule: invalid_schedule }.not_to change(Schedule, :count)
+					expect{ post :create, schedule: invalid_blank_schedule }.not_to change(Schedule, :count)
 				end
 
 				it "re-renders the :new template" do
@@ -136,18 +158,31 @@ describe SchedulesController do
 				describe "has schedule overlap" do
 					before { FactoryGirl.create(:default_for_overlap_schedule) }
 					
-					let!(:overlap_schedule) { FactoryGirl.attributes_for(:overlap_schedule) }
+					let!(:overlap_time_schedule) { FactoryGirl.attributes_for(:overlap_time_schedule) }
 					
-					it "prompts user of error" do
-						expect{ post :create, schedule: overlap_schedule  }.not_to change(Schedule, :count).by(1)
-						flash[:error].should eq("Schedule has an overlap")
+					context "when time_interval is in range of recorded schedule" do 
+						
+						it "does not save in database" do
+							expect{ put :update, id: updated_schedule.id, schedule: overlap_time_schedule  }.not_to change(Schedule, :count).by(1)
+							flash[:error].should eq("Schedule has an overlap")
+						end
+					end
+
+					context "when class is same with recorded schedule" do 
+					before { FactoryGirl.create(:default_overlap_class_schedule) }
+					
+						let!(:schedule_class_change) { FactoryGirl.attributes_for(:schedule, lecture_session_id: 2) }
+						it "does not save in database" do
+							expect{ put :update, id: updated_schedule.id, schedule: schedule_class_change  }.not_to change(Schedule, :count).by(1)
+							flash[:error].should eq("Schedule has an overlap")
+						end
 					end
 				end
 			end
 
 			describe "with invalid attributes" do
 				it "does not save the updated schedule in the database" do
-					expect{ put :update, id: updated_schedule.id, schedule: invalid_schedule }.not_to change(Schedule, :count)
+					expect{ put :update, id: updated_schedule.id, schedule: invalid_blank_schedule }.not_to change(Schedule, :count)
 				end
 
 				it "re-renders the :edit template" do
