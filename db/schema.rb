@@ -13,30 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20130104085142) do
 
-  create_table "jobs", :force => true do |t|
-    t.string   "jobtitle"
-    t.string   "location"
-    t.text     "description"
-    t.text     "apply_details"
-    t.string   "company_name"
-    t.string   "company_website"
-    t.string   "confirmation_email"
-    t.decimal  "salary",              :precision => 10, :scale => 2
-    t.string   "jobtype"
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
-    t.string   "jobkey"
-    t.string   "jobkey_confirmation"
-    t.integer  "isdeleted"
-    t.integer  "category"
-  end
-
-  add_index "jobs", ["jobkey"], :name => "index_jobs_on_jobkey"
-  add_index "jobs", ["jobtitle"], :name => "index_jobs_on_jobtitle"
-  add_index "jobs", ["jobtype"], :name => "index_jobs_on_jobtype"
-  add_index "jobs", ["location"], :name => "index_jobs_on_location"
-  add_index "jobs", ["salary"], :name => "index_jobs_on_salary"
-
   create_table "lecture_sessions", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -65,6 +41,6 @@ ActiveRecord::Schema.define(:version => 20130104085142) do
     t.string   "password_digest"
   end
 
-  add_index "teachers", ["name"], :name => "index_teachers_on_name"
+  add_index "teachers", ["name"], :name => "index_teachers_on_name", :unique => true
 
 end

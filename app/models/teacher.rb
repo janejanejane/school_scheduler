@@ -21,7 +21,7 @@ class Teacher < ActiveRecord::Base
 
   has_many :schedules, dependent: :restrict
 
-  validates :name, presence: :true, uniqueness: { case_sensitive: false }
+  validates :name, presence: :true, uniqueness: { case_sensitive: false }, length: { maximum: 50 }
   validates :password, presence: :true
   validates :password_confirmation, presence: :true
 

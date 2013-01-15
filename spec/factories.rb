@@ -6,14 +6,19 @@ FactoryGirl.define do
 		start_time DateTime.parse("2000-01-01 07:00:00")
 		time_interval 30
 
-		factory :updated_schedule do
-			frequency ["Tuesday"] 
-			start_time DateTime.parse("2000-01-01 08:00:00")
-			time_interval 45
+		factory :teacherB_schedule do
+			teacher_id 2
 		end
 
-		factory :invalid_blank_schedule do
-			time_interval ""
+		factory :precede_time_schedule do
+			frequency ["Monday,Wednesday"]
+			start_time DateTime.parse("2000-01-01 06:30:00")
+			time_interval 30
+		end
+
+		factory :new_class_schedule do
+			lecture_session_id 2
+			frequency ["Tuesday,Thursday"]
 		end
 
 		factory :default_for_overlap_schedule do
@@ -26,19 +31,29 @@ FactoryGirl.define do
 			time_interval 30
 		end
 
+		factory :invalid_blank_schedule do
+			time_interval ""
+		end
+
+		factory :invalid_string_schedule do
+			time_interval "hello"
+		end
+
+		factory :updated_schedule do
+			frequency "Tuesday"
+			start_time DateTime.parse("2000-01-01 08:00:00")
+			time_interval 45
+		end
+
+		factory :default_for_update_schedule do
+			frequency "Monday"	
+		end
+
 		factory :default_overlap_class_schedule do
 			lecture_session_id 2
 			frequency "Monday,Tuesday,Wednesday,Friday"
-		end
-
-		factory :overlap_class_schedule do
-			lecture_session_id 2
-			frequency ["Monday,Tuesday,Wednesday,Friday"]
-		end
-		factory :precede_time_schedule do
-			frequency ["Monday,Wednesday"]
 			start_time DateTime.parse("2000-01-01 06:30:00")
-			time_interval 30
+			time_interval 45
 		end
 	end
 

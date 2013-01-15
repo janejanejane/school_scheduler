@@ -116,7 +116,7 @@ class SchedulesController < ApplicationController
 			proposed_class_name = params[:schedule][:lecture_session_id]
 			
 			proposed_class_start = "00"
-			# logger.debug "(!proposed_start = params[:schedule][:start_time].nil?): " + (!proposed_start = params[:schedule][:start_time].nil?).to_s
+			logger.debug "(!proposed_start = params[:schedule][:start_time].nil?): " + (!proposed_start = params[:schedule][:start_time].nil?).to_s
 			if(!proposed_start = params[:schedule][:start_time].nil?)
 				proposed_class_start = DateTime.parse(params[:schedule][:start_time]).to_i
 			else				
@@ -136,17 +136,15 @@ class SchedulesController < ApplicationController
 			proposed_class_end = proposed_class_start
 			proposed_time_interval = params[:schedule][:time_interval]
 
-			#logger.debug "proposed_class_start: " + DateTime.parse("2000-01-01 " + proposed_start_hr + ":" + proposed_start_min).to_i.to_s
-			
 			if(proposed_time_interval != "")
 				proposed_class_end = (proposed_class_start + proposed_time_interval.to_i.minutes).to_i
 			end
 
 			logger.debug "PROPOSED CLASS START: " + proposed_class_start.to_s + " PROPOSED CLASS END: " + proposed_class_end.to_s
-			#logger.debug "START: " + proposed_start.class.to_s + "CLASS START: " + proposed_class_start.to_s + "CLASS END: " + proposed_class_end.to_s
+			logger.debug "START: " + proposed_start.class.to_s + "CLASS START: " + proposed_class_start.to_s + "CLASS END: " + proposed_class_end.to_s
 
 			@results = Schedule.where('teacher_id = ?', params[:schedule][:teacher_id])
-			# logger.debug "TEACHER: " + @results.inspect
+			logger.debug "TEACHER: " + @results.inspect
 
 			@results_copy = Array.new(@results)
 			if(!params[:id].nil?)
@@ -164,7 +162,7 @@ class SchedulesController < ApplicationController
 				@results_copy.delete_at(idx)
 			end
 
-			# logger.debug "TEACHER: " + @results_copy.inspect
+			logger.debug "TEACHER: " + @results_copy.inspect
 
 			if(@results_copy.count > 0)
 				# get values from database for this teacher
@@ -181,24 +179,19 @@ class SchedulesController < ApplicationController
 					class_frequency.each do |day|
 						if(@dates) # from params[:schedule][:frequency] converted to array
 							if(@dates.index{|d| d == day}) # checks if index is not 0
-								#logger.debug "class name " + proposed_class_name.to_s + " " + class_name.to_s
-								#logger.debug class_name === proposed_class_name.to_i
-								#logger.debug "same name " + proposed_class_name.to_s + " " + class_name.to_s
-								logger.debug "class_start: " + class_start.to_s + " class_end: " + class_end.to_s + " for schedule: " + sched.id.to_s
+								# logger.debug "class name " + proposed_class_name.to_s + " " + class_name.to_s
+								# logger.debug class_name === proposed_class_name.to_i
+								# logger.debug "same name " + proposed_class_name.to_s + " " + class_name.to_s
+								# logger.debug "class_start: " + class_start.to_s + " class_end: " + class_end.to_s + " for schedule: " + sched.id.to_s
 								if(class_start == proposed_class_end)
-									# logger.debug "class_start == proposed_class_end" + (class_start == proposed_class_end).to_s
+									logger.debug "class_start == proposed_class_end" + (class_start == proposed_class_end).to_s
 									return true
 								else
 									# logger.debug "proposed_class_start range: " + (class_start..class_end).include?(proposed_class_start).to_s
 									# logger.debug "proposed_class_end range: " + (class_start..class_end).include?(proposed_class_end).to_s
 									if((class_start..class_end).include?(proposed_class_start) || (class_start..class_end).include?(proposed_class_end)) # if range include the number
-										if(class_name === proposed_class_name.to_i)
-											# logger.debug "invalid schedule"
-											return false
-										else
-											logger.debug "different class name " + proposed_class_name.to_s + " " + class_name.to_s
-											return true
-										end
+										logger.debug "invalid schedule"
+										return false
 									else
 										logger.debug "not in range"
 										return true
