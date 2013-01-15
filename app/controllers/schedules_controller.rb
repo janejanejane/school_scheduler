@@ -1,17 +1,18 @@
 class SchedulesController < ApplicationController
 	# private methods are loaded
 	#before_filter :combined_start_time, only: [:create, :update]
+	before_filter :signed_in_teacher
 	before_filter :correct_schedule, only: [:edit, :update, :show]
 	before_filter :format_frequency, only: [:create, :update]
 	before_filter :split_frequency, only: [:create, :update]
-	#before_filter :is_valid_schedule, only: [:create, :update]
-	#before_filter :signed_in_teacher
 
 	def index
 		logger.debug "inside INDEX"
-		@schedules = Schedule.all
-		@teachers = Teacher.all
-		@classes = LectureSession.all
+		if signed_in?
+			@schedules = Schedule.all
+			@teachers = Teacher.all
+			@classes = LectureSession.all
+		end
 	end
 
 	def show
@@ -209,6 +210,8 @@ class SchedulesController < ApplicationController
 		end
 
 		def signed_in_teacher
+			logger.debug "inside signed_in_teacher"
+			logger.debug signed_in?
 			redirect_to signin_url, notice: "Please sign in." unless signed_in?
 		end
 end

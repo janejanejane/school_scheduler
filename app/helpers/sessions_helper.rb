@@ -1,6 +1,9 @@
 module SessionsHelper
 	def sign_in(teacher)
-		cookies[:remember_token] = teacher.name
+		session[:remember_token] = teacher.name
+		logger.debug session[:remember_token]
+		# cookies.permanent[:remember_token] = teacher.name
+		# logger.debug cookies[:remember_token]
 		self.current_teacher = teacher
 	end
 
@@ -13,7 +16,8 @@ module SessionsHelper
 	end
 
 	def current_teacher
-		@current_teacher ||= Teacher.login(cookies[:remember_token])
+		# @current_teacher ||= Teacher.login(cookies[:remember_token])
+		@current_teacher ||= Teacher.login(cookies[:remember_token]) if session[:remember_token]
 	end
 
 	def current_teacher?(teacher)
@@ -22,7 +26,8 @@ module SessionsHelper
 
 	def sign_out
 		self.current_teacher = nil
-		cookies.delete(:remember_token)
+		# cookies.delete(:remember_token)
+		session[:remember_token] = nil
 	end
 
 	def redirect_back_or(default)

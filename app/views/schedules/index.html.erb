@@ -1,5 +1,6 @@
 <% provide(:title, 'All Schedules') %>
 
+<% if signed_in? %>
 <div>
 	<% if @teachers.count > 0 %>
 			Teacher Name: <%= select(:schedule, :teacher_name, @teachers.collect { |t| [t.name, t.id] }, {:prompt => 'Select Teacher'}) %>
@@ -44,3 +45,12 @@
 		</div>
 	</div>
 </div>
+<% else %>
+<div class="center hero-unit">
+	<h1>Welcome to the School Scheduler App</h1>
+	<h2>This is the homepage for the application.	
+	</h2>
+
+	<%=	link_to "Sign in now!", signin_path, class: "btn btn-large btn-primary"%>
+</div>
+<% end %>

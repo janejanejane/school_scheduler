@@ -11,5 +11,11 @@ require 'spec_helper'
 #   end
 # end
 describe SchedulesHelper do
-  # pending "add some examples to (or delete) #{__FILE__}"
+	describe "pluralize schedule" do
+  	if(Schedule.count > 0)
+			it { pluralize(1, "schedule").should == "1 schedule" }
+		else
+			it { pluralize(0, "schedule").should == "0 schedules" }
+    end    
+	end  
 end
